@@ -14,15 +14,14 @@ class StoreData {
     let appDelegate: AppDelegate
     let context: NSManagedObjectContext
     let entity: NSEntityDescription?
-
+    
     let fetchRequest: NSFetchRequest<NSFetchRequestResult>
-
     
     init() {
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         context = appDelegate.persistentContainer.viewContext
         entity = NSEntityDescription.entity(forEntityName: "Profile", in: context) ?? nil
-
+        
         fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
     }
     
@@ -39,19 +38,13 @@ class StoreData {
         } catch {
             print(error.localizedDescription)
         }
-
-    }
-    
-    func getCoreDataDBPath() {
-            let path = FileManager
-                .default
-                .urls(for: .applicationSupportDirectory, in: .userDomainMask)
-                .last?
-                .absoluteString
-                .replacingOccurrences(of: "file://", with: "")
-                .removingPercentEncoding
-
-            print("Core Data DB Path :: \(path ?? "Not found")")
+        
+        do {
+            try context.save()
+           }
+        catch {
+            print(error.localizedDescription)
         }
-
+        
+    }
 }
