@@ -8,12 +8,16 @@
 import UIKit
 
 class SettingsViewController: UIViewController, UINavigationControllerDelegate {
-
+    
     @IBOutlet weak var accountImage: UIImageView!
     @IBOutlet weak var accountName: UITextField!
-    @IBOutlet weak var accountDBirth: UITextField!
+    @IBOutlet weak var accountDBirth: UIDatePicker!
     @IBOutlet weak var accountHeight: UITextField!
-    @IBOutlet weak var accountBio: UITextField!
+    @IBOutlet weak var accountBio: UITextField?
+    
+    let dateFormatter = DateFormatter()
+    
+    let save = StoreData()
     
     var imagePicker: UIImagePickerController!
     
@@ -23,15 +27,24 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        
     }
     @IBAction func takeImage(_ sender: Any) {
         chooseImage()
     }
     
-    func showAlertWith(title: String, message: String){
-        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
-        present(ac, animated: true)
+    @IBAction func save(_ sender: Any) {
+        
+        if checkData() {
+            let name = self.accountName.text!
+            let dbirth = dateFormatter.string(from: self.accountDBirth.date)
+            let height = self.accountHeight.text! + "cm"
+            let bio = (self.accountBio?.text)!
+            let image = self.accountImage.image
+            
+            save.saveData(name, dbirth, height, bio, ((image ?? UIImage(named: "camera"))!))
+        }
     }
 }
 
@@ -76,4 +89,33 @@ extension SettingsViewController: UIImagePickerControllerDelegate {
         picker.dismiss(animated: true, completion: nil)
     }
     
+    func checkData() -> Bool {
+        if self.accountName.text == "" {
+            self.showAlertWith(title: "The name cannot be empty", message: "")
+            return false
+        }
+        
+        if self.accountHeight.text == "" {
+            self.showAlertWith(title: "The height cannot be empty", message: "")
+            return false
+        }
+        
+        if self.accountDBirth.date > Date() {
+            self.showAlertWith(title: "The date is greater than the current", message: "")
+            return false
+        }
+        
+        if self.accountDBirth.date < dateFormatter.date(from: "Jan 01, 1900")! {
+            self.showAlertWith(title: "the date cannot be less than 01.01.1900", message: "")
+            return false
+        }
+        
+        return true
+    }
+    
+    func showAlertWith(title: String, message: String){
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
+    }
 }

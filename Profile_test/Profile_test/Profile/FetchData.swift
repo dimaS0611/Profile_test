@@ -26,16 +26,18 @@ class FetchData {
         do {
             let result = try context.fetch(request)
             
-            for data in result as! [NSManagedObject] {
+            let data = result as! [NSManagedObject]
+            
+            if data.count != 0 {
+                let name = data[0].value(forKey: "name") as! String
+                let dbirth = data[0].value(forKey: "dbirth") as! String
+                let height = data[0].value(forKey: "height") as! String
+                let bio = data[0].value(forKey: "bio") as? String
+                let image = UIImage(data: (data[0].value(forKey: "image") as! Data))
                 
-                let name = data.value(forKey: "name") as! String
-                let dbirth = data.value(forKey: "dbirth") as! String
-                let height = data.value(forKey: "height") as! String
-                let bio = data.value(forKey: "bio") as? String
-                let image = data.value(forKey: "image") as! UIImage
-                
-                return ProfileData(name: name, dbirth: dbirth, height: height, bio: bio, image: image)
+                return ProfileData(name: name, dbirth: dbirth, height: height, bio: bio, image: ((image ?? UIImage(named: "camera"))!))
             }
+            
         } catch {
             print(error.localizedDescription)
         }
