@@ -29,11 +29,22 @@ class StoreData {
         
         do {
             let userData = try context.fetch(fetchRequest) as? [NSManagedObject]
-            userData?[0].setValue(name, forKey: "name")
-            userData?[0].setValue(dbirth, forKey: "dbirth")
-            userData?[0].setValue(height, forKey: "height")
-            userData?[0].setValue(bio, forKey: "bio")
-            userData?[0].setValue(image.jpegData(compressionQuality: 1.0), forKey: "image")
+            
+            if userData?.count != 0 {
+                userData?[0].setValue(name, forKey: "name")
+                userData?[0].setValue(dbirth, forKey: "dbirth")
+                userData?[0].setValue(height, forKey: "height")
+                userData?[0].setValue(bio, forKey: "bio")
+                userData?[0].setValue(image.jpegData(compressionQuality: 1.0), forKey: "image")
+            } else {
+                let user = NSManagedObject(entity: entity!, insertInto: context)
+                
+                user.setValue(name, forKey: "name")
+                user.setValue(dbirth, forKey: "dbirth")
+                user.setValue(height, forKey: "height")
+                user.setValue(bio, forKey: "bio")
+                user.setValue(image.jpegData(compressionQuality: 1.0), forKey: "image")
+            }
             
         } catch {
             print(error.localizedDescription)
@@ -45,6 +56,5 @@ class StoreData {
         catch {
             print(error.localizedDescription)
         }
-        
     }
 }

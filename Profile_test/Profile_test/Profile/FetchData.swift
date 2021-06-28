@@ -36,6 +36,8 @@ class FetchData {
                 let image = UIImage(data: (data[0].value(forKey: "image") as! Data))
                 
                 return ProfileData(name: name, dbirth: dbirth, height: height, bio: bio, image: ((image ?? UIImage(named: "camera"))!))
+            } else {
+                return ProfileData(name: "John Appleseed", dbirth: "01 Jan, 2000", height: "183cm", bio: "Hello,I’m John!", image: UIImage(named: "camera")!)
             }
             
         } catch {

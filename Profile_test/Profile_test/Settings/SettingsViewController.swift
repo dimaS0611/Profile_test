@@ -27,6 +27,8 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate {
         imagePicker.delegate = self
         
         dateFormatter.dateFormat = "MMM d, yyyy"
+        
+        self.hideKeyboardWhenTappedAround()
     }
     
     @IBAction func takeImage(_ sender: Any) {
