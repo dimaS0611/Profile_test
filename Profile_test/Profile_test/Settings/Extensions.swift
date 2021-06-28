@@ -60,6 +60,11 @@ extension SettingsViewController: UIImagePickerControllerDelegate {
             return false
         }
         
+        if (Int(self.accountHeight.text!)! < 50) || (Int(self.accountHeight.text!)! > 250) {
+            self.showAlertWith(title: "The height cannot be greater than 250 and less than 50 empty", message: "")
+            return false
+        }
+        
         if self.accountDBirth.date > Date() {
             self.showAlertWith(title: "The date is greater than the current", message: "")
             return false
