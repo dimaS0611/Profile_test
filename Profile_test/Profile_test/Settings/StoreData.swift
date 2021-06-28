@@ -56,6 +56,5 @@ class StoreData {
         catch {
             print(error.localizedDescription)
         }
-        
     }
 }
