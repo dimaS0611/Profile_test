@@ -10,14 +10,13 @@ import UIKit
 class ProfileViewController: UIViewController {
 
     let fetch = FetchData()
-<<<<<<< HEAD
+    
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var dbirth: UILabel!
     @IBOutlet weak var height: UILabel!
     @IBOutlet weak var bio: UILabel?
     @IBOutlet weak var image: UIImageView?
-=======
->>>>>>> dev
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +24,7 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-<<<<<<< HEAD
+
         let profile = fetch.fetchData()
         
         self.name.text = profile?.name
@@ -34,9 +33,7 @@ class ProfileViewController: UIViewController {
         self.bio?.text = profile?.bio
         
         self.image?.image = profile?.image
-=======
-        
->>>>>>> dev
+
     }
     
     func showAlertWith(title: String, message: String){
