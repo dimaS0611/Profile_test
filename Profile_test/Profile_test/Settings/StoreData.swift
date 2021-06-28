@@ -14,16 +14,15 @@ class StoreData {
     let appDelegate: AppDelegate
     let context: NSManagedObjectContext
     let entity: NSEntityDescription?
-<<<<<<< HEAD
+
     let fetchRequest: NSFetchRequest<NSFetchRequestResult>
-=======
->>>>>>> dev
+
     
     init() {
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         context = appDelegate.persistentContainer.viewContext
         entity = NSEntityDescription.entity(forEntityName: "Profile", in: context) ?? nil
-<<<<<<< HEAD
+
         fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
     }
     
@@ -40,28 +39,8 @@ class StoreData {
         } catch {
             print(error.localizedDescription)
         }
-=======
+
     }
-    
-    func saveData(_ name: String, _ dbirth: String, _ height: String, _ bio: String, _ image: UIImage) {
-        let userData = NSManagedObject(entity: entity!, insertInto: context)
-        
-        userData.setValue(name, forKey: "name")
-        userData.setValue(dbirth, forKey: "dbirth")
-        userData.setValue(height, forKey: "height")
-        userData.setValue(bio, forKey: "bio")
-        
-        let imageInstance = Profile(context: context)
-        imageInstance.image = image.pngData()
-        
->>>>>>> dev
-        do {
-            try context.save()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-<<<<<<< HEAD
     
     func getCoreDataDBPath() {
             let path = FileManager
@@ -74,6 +53,5 @@ class StoreData {
 
             print("Core Data DB Path :: \(path ?? "Not found")")
         }
-=======
->>>>>>> dev
+
 }

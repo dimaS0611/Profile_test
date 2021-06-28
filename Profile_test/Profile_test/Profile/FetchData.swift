@@ -26,7 +26,7 @@ class FetchData {
         do {
             let result = try context.fetch(request)
             
-<<<<<<< HEAD
+
             let data = result as! [NSManagedObject]
             
             if data.count != 0 {
@@ -39,7 +39,7 @@ class FetchData {
                 return ProfileData(name: name, dbirth: dbirth, height: height, bio: bio, image: ((image ?? UIImage(named: "camera"))!))
             }
             
-=======
+
             for data in result as! [NSManagedObject] {
                 
                 let name = data.value(forKey: "name") as! String
@@ -50,7 +50,7 @@ class FetchData {
                 
                 return ProfileData(name: name, dbirth: dbirth, height: height, bio: bio, image: image)
             }
->>>>>>> dev
+
         } catch {
             print(error.localizedDescription)
         }
